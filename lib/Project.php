@@ -8,6 +8,8 @@ class Project{
 	public $mainClass;
 	/** @var Command[] */
 	public $cmds = [];
+	/** @var Event[] */
+	public $events = [];
 	public function __construct($name, $version, array $authors){
 		$this->namespace = $this->generateClassName();
 		$this->mainClass = "MainClass";
@@ -16,7 +18,7 @@ class Project{
 			"version" => $version,
 			"authors" => $authors,
 			"main" => $this->namespace . "\\" . $this->mainClass,
-			"api" => "1.10.0",
+			"api" => ["1.12.0"],
 		], false);
 	}
 	public function generateClassName(){

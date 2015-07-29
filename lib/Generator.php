@@ -14,6 +14,9 @@ class Generator{
 		$this->generateYaml();
 		$this->generateMainClass();
 		$this->generateCommands();
+		if(count($this->project->events) > 0){
+			$this->generateEvents();
+		}
 		$this->includePhpResource("CommandArgsMap");
 	}
 	private function generateYaml(){
@@ -37,6 +40,9 @@ class Generator{
 			$pluginName = strtolower(str_replace([":", " "], "-", $this->project->getDesc()->getName()));
 			$onEnable->code .= '$this->getServer()->getCommandMap()->register(' . var_export($pluginName, true) . ', new cmds\\' . $cmd->getClassName() . '($this)); // this line registers the command /' . str_replace(["\r", "\n"], "<br>", $cmd->name);
 		}
+		if(count($this->project->events) > 0){
+			$onEnable->code .= '$this->getServer()->getPluginManager()->registerEvents(new EventHandler($this), $this);';
+		}
 		$class->addFunction($onEnable);
 		$this->addFile("src/" . $this->project->namespace . "/MainClass.php", $class);
 	}
@@ -47,6 +53,30 @@ class Generator{
 		}
 		if(isset($include)){
 			$this->includePhpResource("GeneratedPluginCommandAbstract");
+		}
+	}
+	private function generateEvents(){
+		$class = new ClassGenerator($this->project->namespace, "EventHandler");
+		$class->addImport("pocketmine\\event\\Listener");
+		$class->addInterface("Listener");
+		$constructor = new GeneratedFunctionContainer;
+		$constructor->name = "__construct";
+		$constructor->params = ['MainClass $main'];
+		$constructor->code = '$this->main = $main;';
+		$class->addFunction($constructor);
+		$class->addField(\T_PRIVATE, "main");
+		$i = 0;
+		foreach($this->project->events as $event){
+			$fx = new GeneratedFunctionContainer;
+			$fx->name = "h_$i";
+			$i++;
+			$class->addImport($event->eventClassName);
+			$fx->params = [$event->eventName . ' $event'];
+			foreach($event->eventHandler as $stmt){
+				$fx->code .= $stmt->getPhpCode(0);
+				$fx->code .= ClassGenerator::STANDARD_EOL;
+			}
+			$class->addFunction($fx);
 		}
 	}
 	private function addFile($filename, $contents){

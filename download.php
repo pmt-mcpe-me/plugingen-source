@@ -3,6 +3,11 @@ use pg\lib\Generator;
 
 include_once dirname(__FILE__) . "/utils.php";
 $proj = forceProject();
+
+if(isset($_GET["dlName"])){
+	redirect("download.php/" . $_GET["dlName"] . ".zip");
+}
+
 $gen = new Generator($proj);
 $gen->generate();
 

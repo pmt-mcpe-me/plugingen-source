@@ -2,11 +2,17 @@
 use pg\lib\Project;
 
 const IS_PG_READY = true;
-const ESTIMATED_READY_TIME = 1435909102;
+const ESTIMATED_READY_TIME = 1438391005;
 const SERVER_PATH = "/var/www/";
 const SERVER_DOCS = "/var/www/html/";
 const SERVER_TMP = "/var/www/tmp/";
 const INCLUDE_JQUERY = '<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"><script src="//code.jquery.com/jquery-1.10.2.js"></script><script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>';
+
+if(!IS_PG_READY and $_SERVER["REMOTE_ADDR"] !== "14.199.247.137"){
+	header("Content-Type: text/plain");
+	echo "Sorry, the plugin generator is under development/maintenance. This generator is expected to become available again on " . date("d-m-Y H:i:s (\\G\\M\\T P)", ESTIMATED_READY_TIME);
+	die;
+}
 
 if(!defined("ACCEPT_SUBPATH")){
 	if(isset($_SERVER["PATH_INFO"])){
@@ -40,11 +46,16 @@ function getProject(){
 function setProject($project){
 	$_SESSION["project"] = $project;
 }
+
+/**
+ * @return Project
+ */
 function forceProject(){
-	if(!(getProject() instanceof Project)){
+	$project = getProject();
+	if(!($project instanceof Project)){
 		redirect("/pg/");
 	}
-	return getProject();
+	return $project;
 }
 function redirect($url){
 	header("Location: $url");

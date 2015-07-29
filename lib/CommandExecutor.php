@@ -15,7 +15,7 @@ class CommandExecutor{
 	public function exportExecuteFunction(){
 		$out = "";
 		foreach($this->statements as $stmt){
-			$out .= $stmt->getPhpCode(1);
+			$out .= $stmt->getPhpCode(0) . ClassGenerator::STANDARD_EOL;
 		}
 	}
 }

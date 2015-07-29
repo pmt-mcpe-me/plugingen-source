@@ -42,7 +42,7 @@ class Command{
 		$file->addFunction($__construct);
 		$e = new GeneratedFunctionContainer;
 		$e->name = "e";
-		$e->params = ['CommandSender $sender', '$args'];
+		$e->params = ['CommandSender $sender', 'CommandArgsMap $args'];
 		$e->code = $this->executor->exportExecuteFunction();
 		$file->addFunction($e);
 		return $file;

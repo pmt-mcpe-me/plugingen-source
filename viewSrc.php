@@ -4,15 +4,17 @@ use pg\lib\Generator;
 define("ACCEPT_SUBPATH", true);
 include_once dirname(__FILE__) . "/utils.php";
 $proj = forceProject();
+$generationTime = microtime(true);
 $gen = new Generator($proj);
 $gen->generate();
+$generationTime = microtime(true) - $generationTime;
 $files = $gen->files;
 
-if(!isset($_SERVER["PATH_INFO"])){
-	redirect($_SERVER["SCRIPT_NAME"] . "/");
-}
+//if(!isset($_SERVER["PATH_INFO"])){
+//	redirect($_SERVER["SCRIPT_NAME"] . "/");
+//}
 
-$path = preg_replace("#[/\\\\]{2,}#", "/", $_SERVER["PATH_INFO"]);
+$path = "/" . ltrim(preg_replace("#[/\\\\]{2,}#", "/", $_REQUEST["path"]), "/");
 ?>
 <html>
 <head>
@@ -45,8 +47,9 @@ http_response_code(404);
 <p>That file/directory (<code class="code"><?= $path ?></code>) could not be located. Go <a href="<?= $_SERVER["SCRIPT_NAME"] ?>/">here</a> to view the root directory.</p>
 <hr>
 <p>
-	<button onclick="location = '../';" class="button">Back</button>
+	<button onclick="location = '/pg';" class="button">Back</button>
 </p>
+<footer>The plugin was generated in <?= $generationTime * 1000 ?>ms.</footer>
 </body>
 </html>
 <?php
@@ -129,8 +132,9 @@ listPath:
 </ul>
 <hr>
 <p>
-	<button onclick="location = '../';" class="button">Back</button>
+	<button onclick="location = '/pg/';" class="button">Back</button>
 </p>
+<footer>The plugin was generated in <?= $generationTime * 1000 ?>ms.</footer>
 </body>
 <?php
 return;
@@ -163,8 +167,9 @@ dispFile:
 </div>
 <hr>
 <p>
-	<button onclick="location = '../';" class="button">Back</button>
+	<button onclick="location = '/pg/';" class="button">Back</button>
 </p>
+<footer>The plugin was generated in <?= $generationTime * 1000 ?>ms.</footer>
 </body>
 <?php
 echo "</html>";

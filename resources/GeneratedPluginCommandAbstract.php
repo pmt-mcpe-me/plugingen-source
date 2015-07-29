@@ -1,6 +1,5 @@
 <?php
 
-/** @noinspection PhpIllegalPsrClassPathInspection */
 namespace ___PLUGIN_GENERATOR_VARIABLE_main_namespace___\cmds;
 
 use ___PLUGIN_GENERATOR_VARIABLE_main_namespace___\CommandArgsMap;

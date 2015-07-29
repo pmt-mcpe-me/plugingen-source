@@ -28,7 +28,8 @@ $proj = forceProject();
 TODO
 <hr>
 <h2>Commands</h2>
-<table class="headers"><tr>
+<table class="headers">
+	<tr>
 		<th>Name</th>
 		<th>Description</th>
 		<th>Usage</th>
@@ -47,7 +48,24 @@ TODO
 		</tr>
 	<?php endforeach; ?>
 </table>
-<button class="button" onclick="window.location = 'addCmd.php'">Add command</button>
+<button class="button" onclick="window.location = 'addCmd.php';">Add command</button>
+<hr>
+<h2>Events</h2>
+<table class="headers">
+	<tr>
+		<th>Event</th>
+		<th>Event priority</th>
+		<th>Not to handle event if another plugin cancelled it?</th>
+		<th>Edit</th>
+	</tr>
+	<?php
+	foreach($proj->events as $evt):
+		?>
+		<tr>
+			<td></td>
+		</tr>
+	<?php endforeach; ?>
+</table>
 <hr>
 <?php include "footer.php"; ?>
 <div id="editDialog" title="Edit " class="dialogs">

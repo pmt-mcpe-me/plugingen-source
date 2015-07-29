@@ -11,16 +11,16 @@ if(getProject() instanceof Project){
 <head>
 	<link rel="stylesheet" type="text/css" href="style/form.css">
 	<title>Create New Project</title>
+	<?= INCLUDE_JQUERY ?>
 	<script>
 		function validateName(name){
-			return name.replace(/[^A-Za-z0-9 _.-]/g, "");
+			return name.replace(/[^A-Za-z0-9_]/g, "");
 		}
 		$("#submitButton").click(function(){
 			var nameInput = $("#nameInput");
 			nameInput.val(validateName(nameInput.val()));
 		});
 	</script>
-	<?= INCLUDE_JQUERY ?>
 </head>
 <body>
 <h1>Start New Plugin Project</h1>
