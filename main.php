@@ -1,4 +1,18 @@
 <?php
+
+/*
+ * pmt.mcpe.me
+ *
+ * Copyright (C) 2015 PEMapModder
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author PEMapModder
+ */
+
 include_once dirname(__FILE__) . "/utils.php";
 $proj = forceProject();
 ?>
@@ -6,6 +20,35 @@ $proj = forceProject();
 <head>
 	<title>Editing <?= $proj->getDesc()->getName() ?> | Plugin Generator</title>
 	<?= INCLUDE_JQUERY ?>
+	<script>
+		$(document).ready(function(){
+			$(".editable").click(function(){
+				var $this = $(this);
+				var prop = $this.attr("data-property-type");
+				if(typeof prop === typeof undefined){
+					return;
+				}
+				var value = $this.text();
+				if(value === "(None)"){
+					value = "";
+				}
+				var newValue = prompt("Please enter the new value for " + prop + ":", value);
+				if(newValue === value){
+					return;
+				}
+				$.post("apiProjPropUpdate.php", {
+					"prop": prop,
+					"val": newValue
+				}, function(data){
+					if(data.status){
+						$this.html(data.newValue.length == 0 ? "<span class='invalid'>(None)</span>" : data.newValue);
+					}else{
+						alert("Error: " + data.error);
+					}
+				});
+			});
+		});
+	</script>
 	<link type="text/css" rel="stylesheet" href="style/normal.css">
 </head>
 <body>
@@ -18,14 +61,13 @@ $proj = forceProject();
 	</tr>
 	<tr>
 		<td class="left">Version:</td>
-		<td class="right clickable editable" id="version"><?= htmlspecialchars($proj->getDesc()->getVersion()) ?></td>
+		<td class="right clickable editable" id="version" data-property-type="version"><?= htmlspecialchars($proj->getDesc()->getVersion()) ?></td>
 	</tr>
 	<tr>
 		<td class="left">Website:</td>
-		<td class="right clickable editable" id="website"><?= htmlspecialchars($proj->getDesc()->getWebsite()) ?></td>
+		<td class="right clickable editable" id="website" data-property-type="website"><?= strlen($proj->getDesc()->getWebsite()) > 0 ? htmlspecialchars($proj->getDesc()->getWebsite()) : "<span class='invalid'>(None)</span>" ?></td>
 	</tr>
 </table>
-TODO
 <hr>
 <h2>Commands</h2>
 <table class="headers">

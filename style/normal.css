@@ -59,6 +59,10 @@ td.clickable{
 	font-family: monospace;
 	background-color: #E0E0E0;
 }
+.invalid{
+	font-style: italic;
+	color: #C0C0C0;
+}
 div.ui-dialog{
 	border-radius: 5%;
 	padding: 10px;
