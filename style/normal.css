@@ -64,6 +64,9 @@ td.clickable{
 	background-color: palevioletred;
 	padding: 3px 3px 3px 3px;
 }
+.delete{
+	color: red;
+}
 .editable{
 	color: deepskyblue;
 	text-decoration: underline;

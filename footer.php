@@ -16,6 +16,10 @@
 include_once dirname(__FILE__) . "/utils.php";
 forceProject();
 ?>
+<hr>
+<p>
+	<button onclick="location = '/pg';" class="button">Back</button>
+</p>
 <table style="width: 100%">
 	<tr>
 		<th style="text-align: left">

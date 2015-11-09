@@ -22,7 +22,7 @@ const SERVER_DOCS = "/var/www/html/";
 const SERVER_TMP = "/var/www/tmp/";
 const INCLUDE_JQUERY = '<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"><script src="//code.jquery.com/jquery-1.10.2.js"></script><script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>';
 
-if(!IS_PG_READY and $_SERVER["REMOTE_ADDR"] !== "14.199.247.137"){
+if(!IS_PG_READY and $_SERVER["REMOTE_ADDR"] !== "14.199.243.132"){
 	header("Content-Type: text/plain");
 	echo "Sorry, the plugin generator is under development/maintenance. This generator is expected to become available again on " . date("d-m-Y H:i:s (\\G\\M\\T P)", ESTIMATED_READY_TIME);
 	die;
@@ -103,10 +103,11 @@ function notNull(...$vars){
 	return true;
 }
 
-$resourceId = 0;
+if(!isset($_SESSION["resourceId"])){
+	$_SESSION["resourceId"] = 0;
+}
 function getNextResourceId(){
-	global $resourceId;
-	return $resourceId++;
+	return $_SESSION["resourceId"]++;
 }
 
 $colors = [
@@ -124,4 +125,38 @@ $colors = [
 function nextColor(){
 	global $colors;
 	return next($colors) or reset($colors);
+}
+
+function beautified_var_export($var, $return = false){
+	if($var === []){
+		if($return){
+			return "[]";
+		}else{
+			echo "[]";
+			return null;
+		}
+	}elseif($var === true){
+		if($return){
+			return "true";
+		}else{
+			echo "true";
+			return null;
+		}
+	}elseif($var === false){
+		if($return){
+			return "false";
+		}else{
+			echo "false";
+			return null;
+		}
+	}elseif($var === null){
+		if($return){
+			return "null";
+		}else{
+			echo "null";
+			return null;
+		}
+	}else{
+		return var_export($var, $return);
+	}
 }

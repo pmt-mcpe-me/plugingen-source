@@ -63,6 +63,6 @@ class Command{
 		return $file;
 	}
 	protected function ex($var){
-		return var_export($var, true);
+		return beautified_var_export($var, true);
 	}
 }

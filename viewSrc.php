@@ -60,9 +60,6 @@ http_response_code(404);
 <hr>
 <p>That file/directory (<code class="code"><?= $path ?></code>) could not be located. Go <a href="<?= $_SERVER["SCRIPT_NAME"] ?>/">here</a> to view the root directory.</p>
 <hr>
-<p>
-	<button onclick="location = '/pg';" class="button">Back</button>
-</p>
 <footer>The plugin was generated in <?= $generationTime * 1000 ?>ms.</footer>
 </body>
 </html>
@@ -176,7 +173,9 @@ dispFile:
 <div class="main-source">
 	<?php
 	$indent = 4;
-	echo preg_replace("#([\r\n]|(\r\n))#", "<br>", str_replace(["\t"], [str_repeat("&nbsp;", $indent)], htmlspecialchars(str_replace(["\r\n"], ["\n"], $files[$path]))));
+	$out = explode("\n", preg_replace("#([\r\n]|(\r\n))#", "<br>", str_replace(["\t"], [str_repeat("&nbsp;", $indent)], htmlspecialchars(str_replace(["\r\n"], ["\n"], $files[$path])))));
+	$line = 1;
+	$max = count($out);
 	?>
 </div>
 <hr>

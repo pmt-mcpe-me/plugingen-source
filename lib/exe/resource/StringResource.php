@@ -13,16 +13,19 @@
  * @author PEMapModder
  */
 
-namespace pg\lib\exe;
+namespace pg\lib\exe\resource;
 
 class StringResource extends Resource{
+	/** @var bool */
+	private $addCase;
 	public function __construct($expr, $explain, $noAddCase = false){
-		parent::__construct(self::STRING, $expr, $explain);
-		if(!$noAddCase){
-			$this->children = [
-				new StringResource("strtolower($expr)", "$explain in lowercase", true),
-				new StringResource("strtoupper($expr)", "$explain in uppercase", true),
-			];
-		}
+		parent::__construct($expr, $explain);
+		$this->addCase = !$noAddCase;
+	}
+	public function getChildResources(){
+		return $this->addCase ? [
+			new StringResource("strtolower($this->expr)", "$this->explain in lowercase", true),
+			new StringResource("strtoupper($this->expr)", "$this->explain in uppercase", true),
+		] : [];
 	}
 }

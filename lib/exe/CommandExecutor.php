@@ -16,6 +16,7 @@
 namespace pg\lib\exe;
 
 use pg\lib\Command;
+use pg\lib\exe\resource\StringResource;
 
 class CommandExecutor{
 	private $cmd;
@@ -24,7 +25,7 @@ class CommandExecutor{
 
 	public function __construct(Command $cmd){
 		$this->cmd = $cmd;
-		$this->ctx = new Context;
+		$this->ctx = new Context('$this->getPlugin()');
 		$this->ctx->addResource(new StringResource('$this->getUsage()', "usage message for this command"));
 		$this->ctx->addResource(new StringResource('$this->getDescription()', "description for this command"));
 	}

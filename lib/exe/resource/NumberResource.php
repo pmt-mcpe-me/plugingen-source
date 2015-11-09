@@ -13,10 +13,7 @@
  * @author PEMapModder
  */
 
-namespace pg\lib\exe;
+namespace pg\lib\exe\resource;
 
 class NumberResource extends Resource{
-	public function __construct($expr, $explain){
-		parent::__construct(self::NUMBER, $expr, $explain);
-	}
 }

@@ -15,9 +15,27 @@
 
 namespace pg\lib\exe;
 
+use pg\lib\exe\resource\PluginResource;
+use pg\lib\exe\resource\Resource;
+
 class Context{
 	/** @var Resource[] */
-	private $resources = [];
+	private $resources;
+
+	public function __construct($mainRef){
+		foreach(self::defaultResources($mainRef) as $res){
+			$this->addResource($res);
+		}
+	}
+	/**
+	 * @param $mainRef
+	 * @return resource\Resource[]
+	 */
+	private static function defaultResources($mainRef){
+		return [
+			new PluginResource($mainRef, "this plugin"),
+		];
+	}
 
 	/**
 	 * @return Resource[]
@@ -28,5 +46,9 @@ class Context{
 
 	public function addResource(Resource $resource){
 		$this->resources[$resource->resId] = $resource;
+		foreach($resource->getChildResources() as $res){
+			$res->parent = $resource;
+			$this->addResource($res);
+		}
 	}
 }

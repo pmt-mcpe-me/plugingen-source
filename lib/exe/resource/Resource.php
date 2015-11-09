@@ -13,28 +13,26 @@
  * @author PEMapModder
  */
 
-namespace pg\lib\exe;
+namespace pg\lib\exe\resource;
 
 abstract class Resource{
-	const PLAYER = "resource.player";
-	const STRING = "resource.string";
-	const NUMBER = "resource.number";
-
 	public $type;
 	public $expr;
 	public $explain;
 	public $resId;
-	protected $children;
 	private $color;
+	public $parent;
 
-	public function __construct($type, $expr, $explain){
-		$this->type = $type;
+	public function __construct($expr, $explain){
 		$this->color = nextColor();
-		$this->expr = "<span style=\"background-color: #" . sprintf("%X", $this->color) . ">" . $expr . "</span>";
-		$this->explain = $explain;
-		$this->resId = \getNextResourceId();
+		$this->expr = $expr;
+		$this->explain = "<span style=\"background-color: #" . sprintf("%'06X", $this->color) . "\">" . $explain . "</span>";
+		$this->resId = getNextResourceId();
 	}
 
+	/**
+	 * @return self[]
+	 */
 	public function getChildResources(){
 		return [];
 	}

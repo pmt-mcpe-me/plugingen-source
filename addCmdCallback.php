@@ -20,7 +20,7 @@ $proj = forceProject();
 if(!isset($_POST["name"], $_POST["desc"], $_POST["usage"])){
 	redirect("addCmd.php");
 }
-$name = $_POST["name"];
+$name = strtolower($_POST["name"]);
 if(strpos($name, " ") !== false or strpos($name, ":") !== false){
 	redirect("addCmd.php");
 }

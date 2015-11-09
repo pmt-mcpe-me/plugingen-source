@@ -15,6 +15,8 @@
 
 
 header("Content-Type: text/plain");
+echo "Your IP:\r\n";
+var_dump($_SERVER["REMOTE_ADDR"]);
 echo "Cookies:\r\n";
 var_dump($_COOKIE);
 echo "Session:\r\n";

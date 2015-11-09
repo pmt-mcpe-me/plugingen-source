@@ -22,7 +22,7 @@ $proj = forceProject();
 	<?= INCLUDE_JQUERY ?>
 	<script>
 		$(document).ready(function(){
-			$(".editable").click(function(){
+			$("button.editable").click(function(){
 				var $this = $(this);
 				var prop = $this.attr("data-property-type");
 				if(typeof prop === typeof undefined){
@@ -47,6 +47,26 @@ $proj = forceProject();
 					}
 				});
 			});
+			$("button.delete-cmd").click(function(){
+				var $this = $(this);
+				var cmd = $this.attr("data-cmd-name");
+				if(typeof cmd === typeof undefined){
+					return;
+				}
+				if(prompt("Please type the name of the command ("+cmd+") again to confirm!") == cmd){
+					$.post("apiCmdDelete.php", {
+						cmd: cmd
+					}, function(data){
+						if(!data.status){
+							alert("ERROR: " + data.error);
+						}else{
+							$("tr[data-cmd-name='" + cmd + "']").remove();
+						}
+					})
+				}else{
+					alert("Command deletion aborted.");
+				}
+			})
 		});
 	</script>
 	<link type="text/css" rel="stylesheet" href="style/normal.css">
@@ -77,16 +97,20 @@ $proj = forceProject();
 		<th>Usage</th>
 		<th>Aliases</th>
 		<th>Permission</th>
+		<th class="delete">Delete</th>
 	</tr>
-	<?php
-	foreach($proj->cmds as $cmd):
-		?>
-		<tr>
+	<?php foreach($proj->cmds as $cmdName => $cmd): ?>
+		<tr data-cmd-name="<?= $cmdName ?>">
 			<td><?= htmlspecialchars($cmd->name) ?></td>
 			<td><?= htmlspecialchars($cmd->desc) ?></td>
 			<td><?= htmlspecialchars($cmd->usage) ?></td>
 			<td><?= htmlspecialchars(implode(", ", $cmd->aliases)) ?></td>
 			<td><?= htmlspecialchars($cmd->permission) ?></td>
+			<td>
+				<button class="button delete-cmd" data-cmd-name="<?= $cmdName ?>">
+					<span class="delete">Delete</span>
+				</button>
+			</td>
 		</tr>
 	<?php endforeach; ?>
 </table>
