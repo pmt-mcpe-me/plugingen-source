@@ -22,7 +22,7 @@ $proj = forceProject();
 	<?= INCLUDE_JQUERY ?>
 	<script>
 		$(document).ready(function(){
-			$("button.editable").click(function(){
+			$(".editable").click(function(){
 				var $this = $(this);
 				var prop = $this.attr("data-property-type");
 				if(typeof prop === typeof undefined){

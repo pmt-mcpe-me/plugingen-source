@@ -173,9 +173,14 @@ dispFile:
 <div class="main-source">
 	<?php
 	$indent = 4;
-	$out = explode("\n", preg_replace("#([\r\n]|(\r\n))#", "<br>", str_replace(["\t"], [str_repeat("&nbsp;", $indent)], htmlspecialchars(str_replace(["\r\n"], ["\n"], $files[$path])))));
-	$line = 1;
-	$max = count($out);
+	$out = explode("<br>", preg_replace("#([\r\n]|(\r\n))#", "<br>", str_replace(["\t"], [str_repeat("&nbsp;", $indent)], htmlspecialchars(str_replace(["\r\n"], ["\n"], $files[$path])))));
+	$max = strlen(count($out));
+	for($line = 1; isset($out[$line - 1]); $line++){
+		echo str_pad($line, $max, "0", STR_PAD_LEFT);
+		echo "| ";
+		echo $out[$line - 1];
+		echo "<br>";
+	}
 	?>
 </div>
 <hr>

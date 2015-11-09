@@ -19,13 +19,16 @@ use pg\lib\exe\resource\PluginResource;
 use pg\lib\exe\resource\Resource;
 
 class Context{
+	private $contextId;
 	/** @var Resource[] */
 	private $resources;
 
 	public function __construct($mainRef){
+		$this->contextId = getNextContextId();
 		foreach(self::defaultResources($mainRef) as $res){
 			$this->addResource($res);
 		}
+		$_SESSION["contexts"][$this->contextId] = $this;
 	}
 	/**
 	 * @param $mainRef

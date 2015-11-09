@@ -110,6 +110,27 @@ function getNextResourceId(){
 	return $_SESSION["resourceId"]++;
 }
 
+if(!isset($_SESSION["contextId"])){
+	$_SESSION["contextId"] = 0;
+}
+function getNextContextId(){
+	return $_SESSION["contextId"]++;
+}
+
+if(!isset($_SESSION["actionId"])){
+	$_SESSION["actionId"] = 0;
+}
+function getNextActionId(){
+	return $_SESSION["actionId"]++;
+}
+
+if(!isset($_SESSION["actionParamId"])){
+	$_SESSION["actionParamId"] = 0;
+}
+function getNextActionParamId(){
+	return $_SESSION["actionParamId"]++;
+}
+
 $colors = [
 	0xB8271A,
 	0xB8369A,
@@ -127,7 +148,7 @@ function nextColor(){
 	return next($colors) or reset($colors);
 }
 
-function beautified_var_export($var, $return = false){
+function beautified_var_export($var, $return = true){
 	if($var === []){
 		if($return){
 			return "[]";

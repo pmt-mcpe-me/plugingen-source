@@ -36,4 +36,8 @@ abstract class Resource{
 	public function getChildResources(){
 		return [];
 	}
+
+	public function getActions(){
+		return [];
+	}
 }

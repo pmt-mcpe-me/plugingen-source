@@ -31,7 +31,7 @@ This website is provided completely free of charge. Meanwhile, we are not to be 
 This service, PocketMine-MP Plugin Generator, is provided without any warranty. We are not to be liable for any loss, economic, property or otherwise, caused directly or indirectly by this website or the data (including but not limited to generated *.phar files) from it.
 This website uses cookies to provide a data store for you.
 
-This website is partially open-source on <a href="https://github.com/PEMapModder/plugingen-source">GitHub.</a> The license for the source can be found in the <a href="https://github.com/PEMapModder/plugingen-source/blob/master/LICENSE">LICENSE</a> file.
+This website is partially open-source on <a href="https://github.com/PEMapModder/plugingen-source">GitHub</a>. The license for the source can be found in the <a href="https://github.com/PEMapModder/plugingen-source/blob/master/LICENSE">LICENSE</a> file.
 
 By continuing using this website, you agree with the above terms. Click the button below to continue.
 </pre>

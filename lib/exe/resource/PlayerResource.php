@@ -15,6 +15,8 @@
 
 namespace pg\lib\exe\resource;
 
+use pg\lib\exe\resource\action\Action;
+
 class PlayerResource extends EntityResource{
 	public function getChildResoruces(){
 		return array_merge(parent::getChildResources(), [
@@ -22,6 +24,25 @@ class PlayerResource extends EntityResource{
 			new StringResource($this->expr . "->getDisplayName()", "the chat display name of $this->explain"),
 			new StringResource($this->expr . "->getNameTag()", "the name tag of $this->explain"),
 			new BooleanResource($this->expr . "->isOp()", "$this->explain is an op"),
+		]);
+	}
+	public function getActions(){
+		return array_merge(parent::getActions(), [
+			new Action($this->expr . '->sendMessage(%PARAM_message%);', "Send %PARAM_message% to $this->explain in the form of a chat message", [
+				"message" => StringResource::class,
+			]),
+			new Action($this->expr . '->sendTip(%PARAM_message%);', "Send %PARAM_message% to $this->explain in the form of a tip", [
+				"message" => StringResource::class,
+			]),
+			new Action($this->expr . '->sendPopup(%PARAM_message%);', "Send %PARAM_message% to $this->explain in the form of a popup", [
+				"message" => StringResource::class,
+			]),
+			new Action($this->expr . '->kick(%PARAM_reason%, false);', "Kick $this->explain with the reason %PARAM_reason%", [
+				"reason" => StringResource::class,
+			]),
+			new Action($this->expr . '->setHealth(%PARAM_halfhearts);', "Set the health of $this->explain to %PARAM_halfhearts% halfhearts", [
+				"halfhearts" => NumberResource::class,
+			]),
 		]);
 	}
 }
