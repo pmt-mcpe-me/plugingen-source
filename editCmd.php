@@ -82,7 +82,9 @@ $cmd = $proj->cmds[$name];
 </table>
 <hr>
 <h2>Executor</h2>
+<?php
 
+?>
 
 <?php include "footer.php"; ?>
 </body>

@@ -15,8 +15,6 @@
 
 namespace pg\lib;
 
-use pg\lib\exe\Statement;
-
 class Event{
 	const EVENT_EXPLANATIONS = [
 		"World/Physics" => [
@@ -140,6 +138,4 @@ class Event{
 	public $priority = EventPriority::NORMAL;
 	/** @var bool */
 	public $ignoreCancelled = true;
-	/** @var Statement[] */
-	public $eventHandler = [];
 }

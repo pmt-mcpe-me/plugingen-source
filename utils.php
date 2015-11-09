@@ -15,8 +15,8 @@
 
 use pg\lib\Project;
 
-const IS_PG_READY = true;
-const ESTIMATED_READY_TIME = 1438391005;
+const IS_PG_READY = false;
+const ESTIMATED_READY_TIME = 1448788526;
 const SERVER_PATH = "/var/www/";
 const SERVER_DOCS = "/var/www/html/";
 const SERVER_TMP = "/var/www/tmp/";
@@ -101,4 +101,27 @@ function notNull(...$vars){
 		}
 	}
 	return true;
+}
+
+$resourceId = 0;
+function getNextResourceId(){
+	global $resourceId;
+	return $resourceId++;
+}
+
+$colors = [
+	0xB8271A,
+	0xB8369A,
+	0x5E44B8,
+	0x4895B8,
+	0x48B87A,
+	0x48B87A,
+	0x38B800,
+	0xA9B800,
+	0xB85713,
+	0x794EB8,
+];
+function nextColor(){
+	global $colors;
+	return next($colors) or reset($colors);
 }
