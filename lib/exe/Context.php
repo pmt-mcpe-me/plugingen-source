@@ -25,8 +25,7 @@ class Context{
 	private $resources = [];
 	/** @var Context[] */
 	private $children = [];
-	/** @var Runnable[] */
-	private $runnables = [];
+	/** @var string */
 	private $mainRef;
 
 	public function __construct($mainRef){
@@ -77,15 +76,6 @@ class Context{
 		unset($_SESSION["contexts"][$this->contextId]);
 	}
 
-	public function addRunnable(Runnable $runnable){
-		$this->runnables[$runnable->getId()] = $runnable;
-	}
-	/**
-	 * @return Runnable[]
-	 */
-	public function getRunnables(){
-		return $this->runnables;
-	}
 	/**
 	 * @return int
 	 */

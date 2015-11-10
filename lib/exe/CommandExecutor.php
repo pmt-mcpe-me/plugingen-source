@@ -24,8 +24,8 @@ class CommandExecutor extends Executor{
 	public function __construct(Command $cmd){
 		parent::__construct('$this->getPlugin()');
 		$this->cmd = $cmd;
-		$this->ctx->addResource(new StringResource('$this->getUsage()', "usage message for this command"));
-		$this->ctx->addResource(new StringResource('$this->getDescription()', "description for this command"));
+		$this->getContext()->addResource(new StringResource('$this->getUsage()', "usage message for this command"));
+		$this->getContext()->addResource(new StringResource('$this->getDescription()', "description for this command"));
 	}
 	public function description(){
 		return "Command executor of /{$this->cmd->name}";

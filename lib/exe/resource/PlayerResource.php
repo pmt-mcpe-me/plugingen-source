@@ -15,6 +15,7 @@
 
 namespace pg\lib\exe\resource;
 
+use pg\lib\exe\Context;
 use pg\lib\exe\runnable\Action;
 
 class PlayerResource extends EntityResource{
@@ -26,7 +27,7 @@ class PlayerResource extends EntityResource{
 			new BooleanResource($this->expr . "->isOp()", "$this->explain is an op"),
 		]);
 	}
-	public function getActions(){
+	public function getActions(Context $context){
 		return array_merge(parent::getActions(), [
 			new Action($this->expr . '->sendMessage(%PARAM_message%);', "Send %PARAM_message% to $this->explain in the form of a chat message", [
 				"message" => StringResource::class,

@@ -25,9 +25,6 @@ class PluginDescription{
 	public $name;
 	public $main;
 	public $api;
-	public $depend = [];
-	public $softDepend = [];
-	public $loadBefore = [];
 	public $version;
 	public $commands = [];
 	public $description = null;

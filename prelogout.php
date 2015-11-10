@@ -33,7 +33,7 @@ $proj = forceProject();
 				});
 			}
 			setTimeout(checkName, 100);
-		}
+		};
 		$(document).ready(function(){
 			nameConfirm = $("#nameConfirm");
 			setTimeout(checkName, 100);

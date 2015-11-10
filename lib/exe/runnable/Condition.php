@@ -21,23 +21,16 @@ use pg\lib\exe\resource\BooleanResource;
 use pg\lib\exe\Runnable;
 
 class Condition extends Runnable{
-	/** @var int */
-	private $id;
 	/** @var BooleanResource */
 	private $condition;
 
-	private $ctx;
 	/** @var Runnable[] */
 	private $runnables = [];
 
 	public function __construct(Context $parentCtx, BooleanResource $condition){
-		parent::__construct(getNextGlobalId());
+		parent::__construct($parentCtx, getNextGlobalId());
 		$this->condition = $condition;
-		$this->ctx = new Context($parentCtx->getMainRef());
-		$parentCtx->addChild($this->ctx);
-	}
-	public function getId(){
-		return $this->id;
+		$parentCtx->addChild($this->getContext());
 	}
 
 	public function addRunnable(Runnable $runnable){
@@ -48,7 +41,8 @@ class Condition extends Runnable{
 	}
 
 	public function explain(){
-		$out = "<span class='condition runnable-group '>If " . $this->condition->explain . ": <ol>";
+		$out = "<span class='condition runnable-group runnable' data-runnable-id='{$this->getId()}'>" .
+			"If " . $this->condition->explain . ": <ol>";
 		foreach($this->runnables as $run){
 			$out .= "<li>" . $run->explain() . "</li>";
 		}

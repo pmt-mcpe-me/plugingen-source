@@ -33,19 +33,20 @@ $executor = $_SESSION["executors"][$exeId];
 	<?= INCLUDE_JQUERY ?>
 	<script src="libCtx.js"></script>
 	<script>
-		<?php
-		/**
-		 * @var int $ctxId
-		 * @var Context $context
-		 */
-		foreach($_SESSION["contexts"] as $ctxId => $context): ?>
+	<?php
+	/**
+	 * @var int $ctxId
+	 * @var Context $context
+	 */
+	foreach($_SESSION["contexts"] as $ctxId => $context): ?>
 		var context;
 		contexts[<?= json_encode((string) $ctxId) ?>] = context = new Context();
 		<?php foreach($context->getResources() as $res): ?>
-		context.addResource(new Resource(<?= json_encode(get_class($res)) ?>, <?= json_encode($res->explain) ?>, <?= json_encode($res->resId) ?>));
+			context.addResource(new Resource(<?= json_encode(get_class($res)) ?>, <?= json_encode($res->explain) ?>, <?= json_encode($res->resId) ?>));
 		<?php endforeach; ?>
-		<?php endforeach; ?>
+	<?php endforeach; ?>
 	</script>
+	<link rel="stylesheet" type="text/css" href="style/normal.css">
 	<script src="style/context.js"></script>
 </head>
 <body>

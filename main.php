@@ -101,7 +101,7 @@ $proj = forceProject();
 	</tr>
 	<?php foreach($proj->cmds as $cmdName => $cmd): ?>
 		<tr data-cmd-name="<?= $cmdName ?>">
-			<td><?= htmlspecialchars($cmd->name) ?></td>
+			<td><a href="editCmd.php?name=<?= urlencode($cmd->name) ?>"><?= htmlspecialchars($cmd->name) ?></a></td>
 			<td><?= htmlspecialchars($cmd->desc) ?></td>
 			<td><?= htmlspecialchars($cmd->usage) ?></td>
 			<td><?= htmlspecialchars(implode(", ", $cmd->aliases)) ?></td>

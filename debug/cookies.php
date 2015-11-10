@@ -13,6 +13,18 @@
  * @author PEMapModder
  */
 
+spl_autoload_register(function ($class){
+	if(is_file($file = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . str_replace("\\", DIRECTORY_SEPARATOR, $class) . ".php")){
+		require_once $file;
+		if(!class_exists($class, false)){
+			if(!isset($DONT_AUTOLOAD) or $DONT_AUTOLOAD === false){
+				throw new RuntimeException("Class $class not found");
+			}
+		}
+	}else{
+		throw new RuntimeException("Class $class not found");
+	}
+}, true, true);
 
 header("Content-Type: text/plain");
 if($_SERVER["REMOTE_ADDR"] !== "14.199.243.132"){

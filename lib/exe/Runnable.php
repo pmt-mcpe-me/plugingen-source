@@ -16,13 +16,19 @@
 namespace pg\lib\exe;
 
 abstract class Runnable{
+	private $ctx;
 	private $id;
-	public function __construct($id){
+
+	public function __construct(Context $context, $id){
+		$this->ctx = $context;
 		$this->id = $id;
 		$_SESSION["runnables"][$id] = $this;
 	}
 
-	public abstract function getId();
+	public function getId(){
+		return $this->id;
+	}
+
 	public abstract function explain();
 	/**
 	 * Returns PHP code, assumed indentation starts at 0 tabs. No trailing EOL please.
@@ -31,5 +37,11 @@ abstract class Runnable{
 	public abstract function php();
 	public function isValid(){
 		return true;
+	}
+	/**
+	 * @return Context
+	 */
+	public function getContext(){
+		return $this->ctx;
 	}
 }

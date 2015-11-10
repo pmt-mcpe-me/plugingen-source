@@ -18,34 +18,19 @@ namespace pg\lib\exe;
 use pg\lib\ClassGenerator;
 
 abstract class Executor extends Runnable{
-	/** @var Context */
-	protected $ctx;
-
-	private $id;
-
 	/** @var Runnable[] */
 	private $runnables = [];
 
+	/**
+	 * @param string $mainRef
+	 */
 	public function __construct($mainRef){
-		$this->ctx = new Context($mainRef);
-		parent::__construct(getNextGlobalId());
-		$_SESSION["executors"][$this->id] = $this;
+		parent::__construct(new Context($mainRef), getNextGlobalId());
+		$_SESSION["executors"][$this->getId()] = $this;
 	}
 
-	/**
-	 * @return Context
-	 */
-	public function getContext(){
-		return $this->ctx;
-	}
-	/**
-	 * @return int
-	 */
-	public function getId(){
-		return $this->id;
-	}
 	public function explain(){
-		$out = "<span class='executor runnable-group runnable'>" . $this->description() . "<ul>";
+		$out = "<span class='executor runnable-group runnable' data-runnable-id='{$this->getId()}'>" . $this->description() . "<ul>";
 		foreach($this->runnables as $run){
 			$out .= "<li>" . $run->explain() . "</li>";
 		}

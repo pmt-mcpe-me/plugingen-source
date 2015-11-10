@@ -11,29 +11,7 @@
  * @author PEMapModder
  */
 
-var runtimeAutoId = 0;
-
-var runnables = [];
 var contexts = [];
-
-//noinspection JSUnusedGlobalSymbols
-/**
- * Toggles a spoiler.
- * @param id
- * @returns {boolean} true if spoiler is opened, false if spoiler is closed
- */
-function switchSpoiler(id){
-	var el = $(".spoiler[data-spoiler-name='" + id + "']");
-	var opener = $(".spoiler-opener[data-spoiler-name='" + id + "']");
-	if(el.css("display") === "none"){
-		el.css("display", "block");
-		opener.text("Hide");
-		return true;
-	}
-	el.css("display", "none");
-	opener.text("Show");
-	return false;
-}
 
 function Resource(type, explanation, resId){
 	this.type = type;

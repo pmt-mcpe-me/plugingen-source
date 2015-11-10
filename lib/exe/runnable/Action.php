@@ -28,15 +28,14 @@ class Action extends Runnable{
 
 	/** @var Context */
 	private $context;
-	private $actionId;
+	private $inited = false;
 
-	/**
+	/** @noinspection PhpMissingParentConstructorInspection
 	 * @param string $expr
 	 * @param string $explain
 	 * @param string[] $params
 	 */
 	public function __construct($expr, $explain, $params){
-		parent::__construct(getNextGlobalId());
 		$this->expr = $expr;
 		$this->explain = $explain;
 		$this->reqParams = $params;
@@ -51,37 +50,44 @@ class Action extends Runnable{
 		}
 		throw new \RuntimeException("Unknown param");
 	}
+
 	public function isValid(){
 		return count($this->reqParams) === count($this->resParams);
 	}
-	/**
-	 * @return int
-	 */
-	public function getId(){
-		return $this->actionId;
-	}
+
 	public function init(Context $context){
-		if(isset($this->actionId)){
+		if($this->inited){
 			throw new \RuntimeException("Already initialized");
 		}
+		$this->inited = true;
 		$this->context = $context;
-		$this->actionId = getNextGlobalId();
-		parent::__construct($this->actionId);
+		parent::__construct($context, getNextGlobalId());
 	}
 	/**
 	 * @return string
 	 */
 	public function explain(){
 		$explain = $this->explain;
-		/**
-		 * @var string $name
-		 * @var ..\resource\Resource $param
-		 */
-		foreach($this->resParams as $name => $param){
-			$explain = str_replace("%PARAM_$name",
-				"<span class='resource' data-resource-id='{$param->resId}'>" . $param->explain . "</span>", $explain);
+		if($this->isValid()){
+			/**
+			 * @var string $name
+			 * @var ..\resource\Resource $param
+			 */
+			foreach($this->resParams as $name => $param){
+				$explain = str_replace("%PARAM_$name",
+					'<span class="resource" data-resource-id="' . $param->resId . '" ' .
+					'data-resouce-type="' . str_replace("\\", "\\\\", $this->reqParams[$name]) . '">' .
+					$param->explain . "</span>", $explain);
+			}
+			return "<span class='action runnable' data-runnable-id='{$this->getId()}'>" . $explain . "</span>";
 		}
-		return "<span class='action runnable'>" . $explain . "</span>";
+		foreach($this->reqParams as $name => $type){
+			$explain = str_replace("%PARAM_$name",
+				"<span class='resource' data-resource-type='" . str_replace("\\", "\\\\", $type) . "'>" .
+				"<span class='invalid'>(Click to select)</span></span>",
+				$explain);
+		}
+		return $explain;
 	}
 	/**
 	 * @return string

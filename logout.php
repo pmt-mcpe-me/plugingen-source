@@ -15,5 +15,5 @@
 
 require_once __DIR__ . "/utils.php";
 forceProject();
-unset($_SESSION["project"]);
+$_SESSION = ["accept_pg_license" => true];
 redirect(".");
