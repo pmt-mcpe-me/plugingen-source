@@ -15,16 +15,53 @@
 
 namespace pg\lib\exe\runnable;
 
+use pg\lib\ClassGenerator;
+use pg\lib\exe\Context;
+use pg\lib\exe\resource\BooleanResource;
 use pg\lib\exe\Runnable;
 
 class Condition extends Runnable{
-	public function getId(){
-		// TODO: Implement getId() method.
+	/** @var int */
+	private $id;
+	/** @var BooleanResource */
+	private $condition;
+
+	private $ctx;
+	/** @var Runnable[] */
+	private $runnables = [];
+
+	public function __construct(Context $parentCtx, BooleanResource $condition){
+		$this->id = getNextGlobalId();
+		$this->condition = $condition;
+		$this->ctx = new Context($parentCtx->getMainRef());
+		$parentCtx->addChild($this->ctx);
 	}
+	public function getId(){
+		return $this->id;
+	}
+
+	public function addRunnable(Runnable $runnable){
+		if(!$runnable->isValid()){
+			throw new \RuntimeException("Runnable is invalid");
+		}
+		$this->runnables[$runnable->getId()] = $runnable;
+	}
+
 	public function explain(){
-		// TODO: Implement explain() method.
+		$out = "If " . $this->condition->explain . ": <ol>";
+		foreach($this->runnables as $run){
+			$out .= "<li>" . $run->explain() . "</li>";
+		}
+		return $out . "</ol>";
 	}
 	public function php(){
-		// TODO: Implement php() method.
+		$out = "if({$this->condition->expr}){";
+		$out .= ClassGenerator::STANDARD_EOL;
+		foreach($this->runnables as $runnable){
+			$out .= ClassGenerator::STANDARD_TAB;
+			$out .= str_replace(ClassGenerator::STANDARD_EOL, ClassGenerator::STANDARD_EOL . ClassGenerator::STANDARD_TAB, $runnable->php());
+			$out .= ClassGenerator::STANDARD_EOL;
+		}
+		return $out . "}";
 	}
 }

@@ -113,23 +113,8 @@ function notNull(...$vars){
 if(!isset($_SESSION["globalId"])){
 	$_SESSION["globalId"] = 0;
 }
-function getNextResourceId(){
-	return $_SESSION["globalId"]++;
-}
 
-function getNextContextId(){
-	return $_SESSION["globalId"]++;
-}
-
-function getNextRunnableId(){
-	return $_SESSION["globalId"]++;
-}
-
-function getNextActionParamId(){
-	return $_SESSION["globalId"]++;
-}
-
-function getNextExecutorId(){
+function getNextGlobalId(){
 	return $_SESSION["globalId"]++;
 }
 

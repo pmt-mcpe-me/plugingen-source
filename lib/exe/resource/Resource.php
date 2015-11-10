@@ -29,7 +29,7 @@ abstract class Resource{
 		$this->color = nextColor();
 		$this->expr = $expr;
 		$this->explain = "<span style=\"background-color: #" . sprintf("%'06X", $this->color) . "\">" . $explain . "</span>";
-		$this->resId = getNextResourceId();
+		$this->resId = getNextGlobalId();
 	}
 
 	/**

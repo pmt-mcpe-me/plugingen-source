@@ -40,8 +40,14 @@ class PlayerResource extends EntityResource{
 			new Action($this->expr . '->kick(%PARAM_reason%, false);', "Kick $this->explain with the reason %PARAM_reason%", [
 				"reason" => StringResource::class,
 			]),
-			new Action($this->expr . '->setHealth(%PARAM_halfhearts);', "Set the health of $this->explain to %PARAM_halfhearts% halfhearts", [
+			new Action($this->expr . '->setHealth(%PARAM_halfhearts%);', "Set the health of $this->explain to %PARAM_halfhearts% halfhearts", [
 				"halfhearts" => NumberResource::class,
+			]),
+			new Action($this->expr . '->teleport(%PARAM_target%);', "Teleport $this->explain to %PARAM_target%", [
+				"target" => Vector3Resource::class,
+			]),
+			new Action($this->expr . '->getInventory()->addItem(%PARAM_item%', "Add  %PARAM_item% to inventory of $this->explain", [
+				"item" => ItemResource::class,
 			]),
 		]);
 	}

@@ -13,17 +13,7 @@
  * @author PEMapModder
  */
 
-namespace pg\lib\exe;
+namespace pg\lib\exe\resource;
 
-abstract class Runnable{
-	public abstract function getId();
-	public abstract function explain();
-	/**
-	 * Returns PHP code, assumed indentation starts at 0 tabs. No trailing EOL please.
-	 * @return string
-	 */
-	public abstract function php();
-	public function isValid(){
-		return true;
-	}
+class ItemResource extends ObjectResource{
 }

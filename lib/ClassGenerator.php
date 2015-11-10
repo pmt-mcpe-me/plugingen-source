@@ -21,6 +21,7 @@ namespace pg\lib;
 class ClassGenerator{
 	const STANDARD_EOL = "
 "; // equivalent to `chr(10)`
+	const STANDARD_TAB = "	";
 	/** @var string */
 	private $namespace;
 	/** @var string[] */

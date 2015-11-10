@@ -22,7 +22,7 @@ class Executor{
 
 	public function __construct($mainRef){
 		$this->ctx = new Context($mainRef);
-		$this->id = getNextExecutorId();
+		$this->id = getNextGlobalId();
 		$_SESSION["executors"][$this->id] = $this;
 	}
 

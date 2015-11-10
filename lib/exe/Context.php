@@ -27,13 +27,15 @@ class Context{
 	private $children = [];
 	/** @var Runnable[] */
 	private $runnables = [];
+	private $mainRef;
 
 	public function __construct($mainRef){
-		$this->contextId = getNextContextId();
+		$this->contextId = getNextGLobalId();
 		foreach(self::defaultResources($mainRef) as $res){
 			$this->addResource($res);
 		}
 		$_SESSION["contexts"][$this->contextId] = $this;
+		$this->mainRef = $mainRef;
 	}
 	/**
 	 * @param $mainRef
@@ -65,6 +67,9 @@ class Context{
 	public function getChildren(){
 		return $this->children;
 	}
+	public function addChild(Context $context){
+		$this->children[$context->contextId] = $context;
+	}
 	public function deleteTree(){
 		foreach($this->children as $child){
 			$child->deleteTree();
@@ -86,5 +91,8 @@ class Context{
 	 */
 	public function getContextId(){
 		return $this->contextId;
+	}
+	public function getMainRef(){
+		return $this->mainRef;
 	}
 }

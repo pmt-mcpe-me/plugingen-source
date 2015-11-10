@@ -23,6 +23,7 @@ class Action extends Runnable{
 	private $expr;
 	private $explain;
 	private $reqParams;
+	/** @var ..\resource\Resource[] */
 	private $resParams = [];
 
 	/** @var Context */
@@ -64,21 +65,37 @@ class Action extends Runnable{
 			throw new \RuntimeException("Already initialized");
 		}
 		$this->context = $context;
-		$this->actionId = getNextRunnableId();
+		$this->actionId = getNextGlobalId();
 		foreach($this->reqParams as $name => $class){
-			$this->paramIds[$name] = getNextActionParamId();
+			$this->paramIds[$name] = getNextGLobalId();
 		}
 	}
 	/**
 	 * @return string
 	 */
 	public function explain(){
-		return $this->explain;
+		$explain = $this->explain;
+		/**
+		 * @var string $name
+		 * @var ..\resource\Resource $param
+		 */
+		foreach($this->resParams as $name => $param){
+			$explain = str_replace("%PARAM_$name", $param->explain, $explain);
+		}
+		return $explain;
 	}
 	/**
 	 * @return string
 	 */
 	public function php(){
+		$expr = $this->expr;
+		/**
+		 * @var string $name
+		 * @var ..\resource\Resource $param
+		 */
+		foreach($this->resParams as $name => $param){
+			$expr = str_replace("%PARAM_$name", $param->expr, $expr);
+		}
 		return $this->expr;
 	}
 }
