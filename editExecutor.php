@@ -14,10 +14,18 @@
  */
 
 use pg\lib\exe\Context;
+use pg\lib\exe\Executor;
 
 include_once __DIR__ . "/utils.php";
 
 forceProject();
+
+$exeId = $_REQUEST["exeId"];
+if(!isset($_REQUEST["exeId"])){
+	redirect(".");
+}
+/** @var Executor $executor */
+$executor = $_SESSION["executors"][$exeId];
 ?>
 <html>
 <head>
@@ -25,23 +33,25 @@ forceProject();
 	<?= INCLUDE_JQUERY ?>
 	<script src="libCtx.js"></script>
 	<script>
-		var contexts = {};
 		<?php
 		/**
 		 * @var int $ctxId
 		 * @var Context $context
 		 */
 		foreach($_SESSION["contexts"] as $ctxId => $context): ?>
-			var context;
-			contexts[<?= json_encode((string) $ctxId) ?>] = context = new Context();
-			<?php foreach($context->getResources() as $res): ?>
-				context.addResource(new Resource(<?= json_encode(get_class($res)) ?>, <?= json_encode($res->explain) ?>, <?= json_encode($res->resId) ?>));
-			<?php endforeach; ?>
+		var context;
+		contexts[<?= json_encode((string) $ctxId) ?>] = context = new Context();
+		<?php foreach($context->getResources() as $res): ?>
+		context.addResource(new Resource(<?= json_encode(get_class($res)) ?>, <?= json_encode($res->explain) ?>, <?= json_encode($res->resId) ?>));
 		<?php endforeach; ?>
+		<?php endforeach; ?>
+		<?php
+		?>
+		runnables[<?= $exeId ?>] = new Runnable(<?= $exeId ?>, <?= $executor->explain() ?>);
 	</script>
 	<script src="style/context.js"></script>
 </head>
 <body>
-
+<div class="runnable" data-runnable-id="<?= $exeId ?>"></div>
 </body>
 </html>

@@ -28,7 +28,6 @@ class Action extends Runnable{
 
 	/** @var Context */
 	private $context;
-	private $paramIds = [];
 	private $actionId;
 
 	/**
@@ -37,6 +36,7 @@ class Action extends Runnable{
 	 * @param string[] $params
 	 */
 	public function __construct($expr, $explain, $params){
+		parent::__construct(getNextGlobalId());
 		$this->expr = $expr;
 		$this->explain = $explain;
 		$this->reqParams = $params;
@@ -66,9 +66,7 @@ class Action extends Runnable{
 		}
 		$this->context = $context;
 		$this->actionId = getNextGlobalId();
-		foreach($this->reqParams as $name => $class){
-			$this->paramIds[$name] = getNextGLobalId();
-		}
+		parent::__construct($this->actionId);
 	}
 	/**
 	 * @return string

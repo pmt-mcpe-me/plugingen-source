@@ -32,7 +32,7 @@ $cmd = $proj->cmds[$name];
 	<?= INCLUDE_JQUERY ?>
 	<script>
 		$(document).ready(function(){
-			$("#executorFrame").attr("src", "editExecutor.php?exeId=<?= $cmd->executor->getExecutorId() ?>");
+			$("#executorFrame").attr("src", "editExecutor.php?exeId=<?= $cmd->executor->getId() ?>");
 			$(".editable").click(function(){
 				var $this = $(this);
 				var prop = $this.attr("data-property-type");
@@ -83,7 +83,7 @@ $cmd = $proj->cmds[$name];
 <hr>
 <h2>Executor</h2>
 <iframe id="executorFrame">
-	<a href="editExecutor.php?exeId=<?= $cmd->executor->getExecutorId() ?>">Your browser doesn't support iframe. Click this link to edit executor.</a>
+	<a href="editExecutor.php?exeId=<?= $cmd->executor->getId() ?>">Your browser doesn't support iframe. Click this link to edit executor.</a>
 </iframe>
 
 <?php include "footer.php"; ?>

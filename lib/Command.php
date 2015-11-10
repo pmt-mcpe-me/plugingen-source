@@ -58,7 +58,7 @@ class Command{
 		$e = new GeneratedFunctionContainer;
 		$e->name = "e";
 		$e->params = ['CommandSender $sender', 'CommandArgsMap $args'];
-		$e->code = $this->executor->exportExecuteFunction();
+		$e->code = $this->executor->php();
 		$file->addFunction($e);
 		return $file;
 	}

@@ -16,6 +16,12 @@
 namespace pg\lib\exe;
 
 abstract class Runnable{
+	private $id;
+	public function __construct($id){
+		$this->id = $id;
+		$_SESSION["runnables"][$id] = $this;
+	}
+
 	public abstract function getId();
 	public abstract function explain();
 	/**

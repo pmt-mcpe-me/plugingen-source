@@ -11,9 +11,7 @@
  * @author PEMapModder
  */
 
-$("div.context").each(function(){
+$("div.runnable").each(function(){
 	var $this = $(this);
-	var ctxId = $this.attr("context-id");
-	var ctx = contexts[ctxId];
-	ctx.writeHTML($this);
+	var runnableId = $this.attr("data-runnable-id");
 });

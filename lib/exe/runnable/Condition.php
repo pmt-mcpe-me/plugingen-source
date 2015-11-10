@@ -31,7 +31,7 @@ class Condition extends Runnable{
 	private $runnables = [];
 
 	public function __construct(Context $parentCtx, BooleanResource $condition){
-		$this->id = getNextGlobalId();
+		parent::__construct(getNextGlobalId());
 		$this->condition = $condition;
 		$this->ctx = new Context($parentCtx->getMainRef());
 		$parentCtx->addChild($this->ctx);

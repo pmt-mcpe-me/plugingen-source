@@ -15,8 +15,11 @@
 
 
 header("Content-Type: text/plain");
-echo "Your IP:\r\n";
-var_dump($_SERVER["REMOTE_ADDR"]);
+if($_SERVER["REMOTE_ADDR"] !== "14.199.243.132"){
+	http_response_code(403);
+	echo "Forbidden";
+	return;
+}
 echo "Cookies:\r\n";
 var_dump($_COOKIE);
 echo "Session:\r\n";

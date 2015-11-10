@@ -15,26 +15,23 @@
 
 namespace pg\lib\exe;
 
-class Executor{
+use pg\lib\ClassGenerator;
+
+abstract class Executor extends Runnable{
 	/** @var Context */
 	protected $ctx;
+
 	private $id;
+
+	/** @var Runnable[] */
+	private $runnables = [];
 
 	public function __construct($mainRef){
 		$this->ctx = new Context($mainRef);
-		$this->id = getNextGlobalId();
+		parent::__construct(getNextGlobalId());
 		$_SESSION["executors"][$this->id] = $this;
 	}
 
-
-	/**
-	 * Returns the executor object converted to PHP code, <i>without</i> function declaration.
-	 * @return string
-	 */
-	public function exportExecuteFunction(){
-		$out = "";
-		return $out;
-	}
 	/**
 	 * @return Context
 	 */
@@ -44,7 +41,23 @@ class Executor{
 	/**
 	 * @return int
 	 */
-	public function getExecutorId(){
+	public function getId(){
 		return $this->id;
 	}
+	public function explain(){
+		$out = $this->description() . "<ul>";
+		foreach($this->runnables as $run){
+			$out .= "<li>" . $run->explain() . "</li>";
+		}
+		return $out . "</ul>";
+	}
+	public function php(){
+		$out = "";
+		foreach($this->runnables as $run){
+			$out .= $run->php();
+			$out .= ClassGenerator::STANDARD_EOL;
+		}
+		return substr($out, 0, -strlen(ClassGenerator::STANDARD_EOL));
+	}
+	public abstract function description();
 }

@@ -27,4 +27,7 @@ class CommandExecutor extends Executor{
 		$this->ctx->addResource(new StringResource('$this->getUsage()', "usage message for this command"));
 		$this->ctx->addResource(new StringResource('$this->getDescription()', "description for this command"));
 	}
+	public function description(){
+		return "Command executor of /{$this->cmd->name}";
+	}
 }
