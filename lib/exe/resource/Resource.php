@@ -26,10 +26,10 @@ abstract class Resource{
 	public $parent;
 
 	public function __construct($expr, $explain){
-		$this->color = nextColor();
-		$this->expr = $expr;
-		$this->explain = "<span style=\"background-color: #" . sprintf("%'06X", $this->color) . "\">" . $explain . "</span>";
 		$this->resId = getNextGlobalId();
+		$this->expr = $expr;
+		$this->color = nextColor();
+		$this->explain = '<span style="background-color: #' . sprintf("%'06X", $this->color) . '" class="resource" data-resource-id="$this->resId">' . $explain . "</span>";
 	}
 
 	/**

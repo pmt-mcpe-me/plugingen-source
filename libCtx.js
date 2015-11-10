@@ -49,7 +49,26 @@ Context.prototype.addResource = function(res){
 	this.resources[res.resId] = res;
 };
 
+/*
 function Runnable(id, explain){
 	this.id = id;
 	this.explain = explain;
 }
+Runnable.prototype.getExplain = function(){
+	return this.explain;
+};
+function RunnableGroup(id, explain){
+	this.id = id;
+	this.explain = explain;
+	this.children = {};
+}
+RunnableGroup.prototype = Runnable;
+RunnableGroup.prototype.getExplain = function(){
+	var child;
+	var out = this.explain + "<ol>";
+	for(child in this.children){
+		out += "<li>" + child.getExplain() + "</li>";
+	}
+	return out + "</ol>";
+};
+*/

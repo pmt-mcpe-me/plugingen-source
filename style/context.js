@@ -11,7 +11,3 @@
  * @author PEMapModder
  */
 
-$("div.runnable").each(function(){
-	var $this = $(this);
-	var runnableId = $this.attr("data-runnable-id");
-});

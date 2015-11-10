@@ -45,13 +45,10 @@ $executor = $_SESSION["executors"][$exeId];
 		context.addResource(new Resource(<?= json_encode(get_class($res)) ?>, <?= json_encode($res->explain) ?>, <?= json_encode($res->resId) ?>));
 		<?php endforeach; ?>
 		<?php endforeach; ?>
-		<?php
-		?>
-		runnables[<?= $exeId ?>] = new Runnable(<?= $exeId ?>, <?= $executor->explain() ?>);
 	</script>
 	<script src="style/context.js"></script>
 </head>
 <body>
-<div class="runnable" data-runnable-id="<?= $exeId ?>"></div>
+<?= $executor->explain() ?>
 </body>
 </html>

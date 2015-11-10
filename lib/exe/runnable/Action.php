@@ -78,9 +78,10 @@ class Action extends Runnable{
 		 * @var ..\resource\Resource $param
 		 */
 		foreach($this->resParams as $name => $param){
-			$explain = str_replace("%PARAM_$name", $param->explain, $explain);
+			$explain = str_replace("%PARAM_$name",
+				"<span class='resource' data-resource-id='{$param->resId}'>" . $param->explain . "</span>", $explain);
 		}
-		return $explain;
+		return "<span class='action runnable'>" . $explain . "</span>";
 	}
 	/**
 	 * @return string

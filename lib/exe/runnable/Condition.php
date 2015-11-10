@@ -48,11 +48,11 @@ class Condition extends Runnable{
 	}
 
 	public function explain(){
-		$out = "If " . $this->condition->explain . ": <ol>";
+		$out = "<span class='condition runnable-group '>If " . $this->condition->explain . ": <ol>";
 		foreach($this->runnables as $run){
 			$out .= "<li>" . $run->explain() . "</li>";
 		}
-		return $out . "</ol>";
+		return $out . "</ol></span>";
 	}
 	public function php(){
 		$out = "if({$this->condition->expr}){";

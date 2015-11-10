@@ -45,7 +45,7 @@ abstract class Executor extends Runnable{
 		return $this->id;
 	}
 	public function explain(){
-		$out = $this->description() . "<ul>";
+		$out = "<span class='executor runnable-group runnable'>" . $this->description() . "<ul>";
 		foreach($this->runnables as $run){
 			$out .= "<li>" . $run->explain() . "</li>";
 		}
