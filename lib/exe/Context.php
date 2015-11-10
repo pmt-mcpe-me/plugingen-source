@@ -15,13 +15,19 @@
 
 namespace pg\lib\exe;
 
+use pg\lib\exe\resource\action\Action;
 use pg\lib\exe\resource\PluginResource;
 use pg\lib\exe\resource\Resource;
 
 class Context{
+	/** @var int */
 	private $contextId;
 	/** @var Resource[] */
-	private $resources;
+	private $resources = [];
+	/** @var Context[] */
+	private $children = [];
+	/** @var Action[] */
+	private $actions = [];
 
 	public function __construct($mainRef){
 		$this->contextId = getNextContextId();
@@ -41,7 +47,7 @@ class Context{
 	}
 
 	/**
-	 * @return Resource[]
+	 * @return resource\Resource[]
 	 */
 	public function getResources(){
 		return $this->resources;
@@ -53,5 +59,27 @@ class Context{
 			$res->parent = $resource;
 			$this->addResource($res);
 		}
+	}
+	/**
+	 * @return Context[]
+	 */
+	public function getChildren(){
+		return $this->children;
+	}
+	public function deleteTree(){
+		foreach($this->children as $child){
+			$child->deleteTree();
+		}
+		unset($_SESSION["contexts"][$this->contextId]);
+	}
+
+	public function addAction(Action $action){
+		$this->actions[$action->getActionId()] = $action;
+	}
+	/**
+	 * @return resource\action\Action[]
+	 */
+	public function getActions(){
+		return $this->actions;
 	}
 }

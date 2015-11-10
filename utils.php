@@ -33,7 +33,7 @@ if(!defined("ACCEPT_SUBPATH")){
 		redirect($_SERVER["SCRIPT_NAME"]);
 	}
 }
-spl_autoload_register(function($class){
+spl_autoload_register(function ($class){
 	if(is_file($file = dirname(__DIR__) . DIRECTORY_SEPARATOR . str_replace("\\", DIRECTORY_SEPARATOR, $class) . ".php")){
 		require_once $file;
 		if(!class_exists($class, false)){
@@ -54,6 +54,7 @@ require_once __DIR__ . "/license.php";
 function getProject(){
 	return isset($_SESSION["project"]) ? $_SESSION["project"] : null;
 }
+
 /**
  * @param Project|null $project
  */
@@ -71,16 +72,20 @@ function forceProject(){
 	}
 	return $project;
 }
+
 function redirect($url){
 	header("Location: $url");
 	exit;
 }
+
 function getNewTmp($suffix, $prefix = ""){
 	$dir = SERVER_TMP;
 	if(!is_dir($dir)){
 		mkdir($dir);
 	}
-	for($i = 6; is_file($file = $dir . $prefix . $i . $suffix); $i++);
+	for($i = 6; is_file($file = $dir . $prefix . $i . $suffix); $i++){
+		;
+	}
 	return $file;
 }
 
@@ -89,11 +94,13 @@ function html_var_dump(...$var){
 	var_dump(...$var);
 	echo "</pre>";
 }
+
 function html_print_r($var){
 	echo "<pre>";
 	echo htmlspecialchars(print_r($var, true));
 	echo "</pre>";
 }
+
 function notNull(...$vars){
 	foreach($vars as $var){
 		if($var === null){
@@ -131,6 +138,13 @@ function getNextActionParamId(){
 	return $_SESSION["actionParamId"]++;
 }
 
+if(!isset($_SESSION["executorId"])){
+	$_SESSION["executorId"] = 0;
+}
+function getNextExecutorId(){
+	return $_SESSION["executorId"]++;
+}
+
 $colors = [
 	0xB8271A,
 	0xB8369A,
@@ -145,7 +159,11 @@ $colors = [
 ];
 function nextColor(){
 	global $colors;
-	return next($colors) or reset($colors);
+	$out = next($colors);
+	if($out === false){
+		$out = reset($colors);
+	}
+	return $out;
 }
 
 function beautified_var_export($var, $return = true){

@@ -32,6 +32,7 @@ $cmd = $proj->cmds[$name];
 	<?= INCLUDE_JQUERY ?>
 	<script>
 		$(document).ready(function(){
+			$("#executorFrame").attr("src", "editExecutor.php?exeId=<?= $cmd->executor->getExecutorId() ?>");
 			$(".editable").click(function(){
 				var $this = $(this);
 				var prop = $this.attr("data-property-type");
@@ -77,14 +78,13 @@ $cmd = $proj->cmds[$name];
 	<tr>
 		<td class="left">Usage:</td>
 		<td class="right clickable editable" id="usageEdit" data-property-type="usage"><?= htmlspecialchars($cmd->usage) ?></td>
-		<!-- TODO add edit dialog -->
 	</tr>
 </table>
 <hr>
 <h2>Executor</h2>
-<?php
-
-?>
+<iframe id="executorFrame">
+	<a href="editExecutor.php?exeId=<?= $cmd->executor->getExecutorId() ?>">Your browser doesn't support iframe. Click this link to edit executor.</a>
+</iframe>
 
 <?php include "footer.php"; ?>
 </body>

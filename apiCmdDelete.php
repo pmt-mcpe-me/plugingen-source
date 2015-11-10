@@ -34,5 +34,9 @@ if(!isset($proj->cmds[strtolower($_REQUEST["cmd"])])){
 	return;
 }
 
+$cmd = $proj->cmds[strtolower($_REQUEST["cmd"])];
+$exe = $cmd->executor;
+unset($_SESSION["executors"][$exe->getExecutorId()]);
+$exe->getContext()->deleteTree();
 unset($proj->cmds[strtolower($_REQUEST["cmd"])]);
 echo json_encode(["status" => true]);

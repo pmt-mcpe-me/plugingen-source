@@ -16,25 +16,16 @@
 namespace pg\lib\exe;
 
 use pg\lib\Command;
+use pg\lib\exe\resource\action\Action;
 use pg\lib\exe\resource\StringResource;
 
-class CommandExecutor{
+class CommandExecutor extends Executor{
 	private $cmd;
-	/** @var Context */
-	private $ctx;
 
 	public function __construct(Command $cmd){
+		parent::__construct('$this->getPlugin()');
 		$this->cmd = $cmd;
-		$this->ctx = new Context('$this->getPlugin()');
 		$this->ctx->addResource(new StringResource('$this->getUsage()', "usage message for this command"));
 		$this->ctx->addResource(new StringResource('$this->getDescription()', "description for this command"));
-	}
-	/**
-	 * Returns the executor object converted to PHP code, <i>without</i> function declaration.
-	 * @return string
-	 */
-	public function exportExecuteFunction(){
-		$out = "";
-		return $out;
 	}
 }
