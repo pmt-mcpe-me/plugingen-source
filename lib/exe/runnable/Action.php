@@ -13,12 +13,13 @@
  * @author PEMapModder
  */
 
-namespace pg\lib\exe\resource\action;
+namespace pg\lib\exe\runnable;
 
 use pg\lib\exe\Context;
 use pg\lib\exe\resource\Resource;
+use pg\lib\exe\Runnable;
 
-class Action{
+class Action extends Runnable{
 	private $expr;
 	private $explain;
 	private $reqParams;
@@ -55,7 +56,7 @@ class Action{
 	/**
 	 * @return int
 	 */
-	public function getActionId(){
+	public function getId(){
 		return $this->actionId;
 	}
 	public function init(Context $context){
@@ -63,9 +64,21 @@ class Action{
 			throw new \RuntimeException("Already initialized");
 		}
 		$this->context = $context;
-		$this->actionId = getNextActionId();
+		$this->actionId = getNextRunnableId();
 		foreach($this->reqParams as $name => $class){
 			$this->paramIds[$name] = getNextActionParamId();
 		}
+	}
+	/**
+	 * @return string
+	 */
+	public function explain(){
+		return $this->explain;
+	}
+	/**
+	 * @return string
+	 */
+	public function php(){
+		return $this->expr;
 	}
 }

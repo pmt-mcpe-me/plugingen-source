@@ -15,7 +15,6 @@
 
 namespace pg\lib\exe;
 
-use pg\lib\exe\resource\action\Action;
 use pg\lib\exe\resource\PluginResource;
 use pg\lib\exe\resource\Resource;
 
@@ -26,8 +25,8 @@ class Context{
 	private $resources = [];
 	/** @var Context[] */
 	private $children = [];
-	/** @var Action[] */
-	private $actions = [];
+	/** @var Runnable[] */
+	private $runnables = [];
 
 	public function __construct($mainRef){
 		$this->contextId = getNextContextId();
@@ -73,13 +72,19 @@ class Context{
 		unset($_SESSION["contexts"][$this->contextId]);
 	}
 
-	public function addAction(Action $action){
-		$this->actions[$action->getActionId()] = $action;
+	public function addRunnable(Runnable $runnable){
+		$this->runnables[$runnable->getId()] = $runnable;
 	}
 	/**
-	 * @return resource\action\Action[]
+	 * @return Runnable[]
 	 */
-	public function getActions(){
-		return $this->actions;
+	public function getRunnables(){
+		return $this->runnables;
+	}
+	/**
+	 * @return int
+	 */
+	public function getContextId(){
+		return $this->contextId;
 	}
 }

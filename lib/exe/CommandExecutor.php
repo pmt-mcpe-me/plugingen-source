@@ -16,7 +16,6 @@
 namespace pg\lib\exe;
 
 use pg\lib\Command;
-use pg\lib\exe\resource\action\Action;
 use pg\lib\exe\resource\StringResource;
 
 class CommandExecutor extends Executor{

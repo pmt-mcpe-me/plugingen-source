@@ -15,7 +15,7 @@
 
 namespace pg\lib\exe\resource;
 
-use pg\lib\exe\resource\action\Action;
+use pg\lib\exe\runnable\Action;
 
 class PlayerResource extends EntityResource{
 	public function getChildResoruces(){

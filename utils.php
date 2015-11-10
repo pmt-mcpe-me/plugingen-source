@@ -110,39 +110,27 @@ function notNull(...$vars){
 	return true;
 }
 
-if(!isset($_SESSION["resourceId"])){
-	$_SESSION["resourceId"] = 0;
+if(!isset($_SESSION["globalId"])){
+	$_SESSION["globalId"] = 0;
 }
 function getNextResourceId(){
-	return $_SESSION["resourceId"]++;
+	return $_SESSION["globalId"]++;
 }
 
-if(!isset($_SESSION["contextId"])){
-	$_SESSION["contextId"] = 0;
-}
 function getNextContextId(){
-	return $_SESSION["contextId"]++;
+	return $_SESSION["globalId"]++;
 }
 
-if(!isset($_SESSION["actionId"])){
-	$_SESSION["actionId"] = 0;
-}
-function getNextActionId(){
-	return $_SESSION["actionId"]++;
+function getNextRunnableId(){
+	return $_SESSION["globalId"]++;
 }
 
-if(!isset($_SESSION["actionParamId"])){
-	$_SESSION["actionParamId"] = 0;
-}
 function getNextActionParamId(){
-	return $_SESSION["actionParamId"]++;
+	return $_SESSION["globalId"]++;
 }
 
-if(!isset($_SESSION["executorId"])){
-	$_SESSION["executorId"] = 0;
-}
 function getNextExecutorId(){
-	return $_SESSION["executorId"]++;
+	return $_SESSION["globalId"]++;
 }
 
 $colors = [

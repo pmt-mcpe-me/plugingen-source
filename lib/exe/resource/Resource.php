@@ -15,6 +15,8 @@
 
 namespace pg\lib\exe\resource;
 
+use pg\lib\exe\runnable\Action;
+
 abstract class Resource{
 	public $type;
 	public $expr;
@@ -37,6 +39,9 @@ abstract class Resource{
 		return [];
 	}
 
+	/**
+	 * @return Action[]
+	 */
 	public function getActions(){
 		return [];
 	}

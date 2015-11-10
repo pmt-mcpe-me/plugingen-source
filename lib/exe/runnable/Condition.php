@@ -1,3 +1,5 @@
+<?php
+
 /*
  * pmt.mcpe.me
  *
@@ -11,8 +13,18 @@
  * @author PEMapModder
  */
 
-.spoiler{
-	border:        dashed;
-	border-radius: 8px;
-	margin-left: 10px;
+namespace pg\lib\exe\runnable;
+
+use pg\lib\exe\Runnable;
+
+class Condition extends Runnable{
+	public function getId(){
+		// TODO: Implement getId() method.
+	}
+	public function explain(){
+		// TODO: Implement explain() method.
+	}
+	public function php(){
+		// TODO: Implement php() method.
+	}
 }

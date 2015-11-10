@@ -15,8 +15,6 @@
 
 namespace pg\lib\exe;
 
-use pg\lib\exe\resource\action\Action;
-
 class Executor{
 	/** @var Context */
 	protected $ctx;

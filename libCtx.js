@@ -13,16 +13,7 @@
 
 var runtimeAutoId = 0;
 
-function Resource(type, explanation, resId){
-	this.type = type;
-	this.explain = explanation;
-	this.resId = resId;
-}
-
-function Context(){
-	this.resources = {};
-}
-
+//noinspection JSUnusedGlobalSymbols
 /**
  * Toggles a spoiler.
  * @param id
@@ -41,10 +32,25 @@ function switchSpoiler(id){
 	return false;
 }
 
-Context.prototype.addResource = function(res){
-	if(res instanceof Resource){
-		this.resources[res.resId] = res;
+function Resource(type, explanation, resId){
+	this.type = type;
+	this.explain = explanation;
+	this.resId = resId;
+}
+
+Runnable = {
+	writeHTML: function(){
+		throw new Error("Child does not implement writeHTML function");
 	}
+};
+
+function Context(){
+	this.resources = {};
+}
+Context.prototype = Runnable;
+
+Context.prototype.addResource = function(res){
+	this.resources[res.resId] = res;
 };
 Context.prototype.writeHTML = function(element){
 	var id = runtimeAutoId++;
@@ -53,5 +59,5 @@ Context.prototype.writeHTML = function(element){
 	element.css("display", "none");
 	element.before('<button class="spoiler-opener" onclick="switchSpoiler(' + id + ')" data-spoiler-name="' + id + '">Show</button>');
 	element.append("<h3>Actions</h3>");
-	
+
 };

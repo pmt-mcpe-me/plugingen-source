@@ -1,3 +1,5 @@
+<?php
+
 /*
  * pmt.mcpe.me
  *
@@ -11,8 +13,10 @@
  * @author PEMapModder
  */
 
-.spoiler{
-	border:        dashed;
-	border-radius: 8px;
-	margin-left: 10px;
+namespace pg\lib\exe;
+
+abstract class Runnable{
+	public abstract function getId();
+	public abstract function explain();
+	public abstract function php();
 }
