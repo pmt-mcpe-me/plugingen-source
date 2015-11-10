@@ -34,7 +34,7 @@ if(!defined("ACCEPT_SUBPATH")){
 	}
 }
 spl_autoload_register(function($class){
-	if(is_file($file = dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . str_replace("\\", DIRECTORY_SEPARATOR, $class) . ".php")){
+	if(is_file($file = dirname(__DIR__) . DIRECTORY_SEPARATOR . str_replace("\\", DIRECTORY_SEPARATOR, $class) . ".php")){
 		require_once $file;
 		if(!class_exists($class, false)){
 			if(!isset($DONT_AUTOLOAD) or $DONT_AUTOLOAD === false){
@@ -46,7 +46,7 @@ spl_autoload_register(function($class){
 	}
 }, true, true);
 session_start();
-require_once dirname(__FILE__) . "/license.php";
+require_once __DIR__ . "/license.php";
 
 /**
  * @return Project|null

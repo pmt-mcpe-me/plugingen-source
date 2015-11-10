@@ -16,7 +16,7 @@
 use pg\lib\Generator;
 
 define("ACCEPT_SUBPATH", true);
-include_once dirname(__FILE__) . "/utils.php";
+include_once __DIR__ . "/utils.php";
 $proj = forceProject();
 $generationTime = microtime(true);
 $gen = new Generator($proj);

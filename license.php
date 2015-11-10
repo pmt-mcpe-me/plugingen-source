@@ -13,7 +13,7 @@
  * @author PEMapModder
  */
 
-require_once dirname(__FILE__) . "/utils.php";
+require_once __DIR__ . "/utils.php";
 
 if(isset($_REQUEST["accept_pg_license"]) and $_REQUEST["accept_pg_license"] === "true"){
 	$_SESSION["accept_pg_license"] = true;

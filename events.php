@@ -15,7 +15,7 @@
 
 use pg\lib\Event;
 
-require_once dirname(__FILE__) . "/utils.php";
+require_once __DIR__ . "/utils.php";
 ?>
 <html>
 <head>

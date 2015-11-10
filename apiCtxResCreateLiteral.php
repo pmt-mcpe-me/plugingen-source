@@ -43,6 +43,10 @@ $ctx = $_SESSION["contexts"][$_REQUEST["ctx"]];
 $type = $_REQUEST["type"];
 $literal = $_REQUEST["literal"];
 if($type === "number"){
+	if(!is_numeric($literal)){
+		echo json_encode(["status" => false, "error" => "Malformed number - please enter a valid number!"]);
+		return;
+	}
 	$value = preg_match('#^[0-9]+$#', $literal) ? intval($literal) : floatval($literal);
 	$res = new NumberResource(beautified_var_export($value, true), $value);
 }elseif($type === "string"){

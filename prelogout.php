@@ -13,7 +13,7 @@
  * @author PEMapModder
  */
 
-require_once dirname(__FILE__) . "/utils.php";
+require_once __DIR__ . "/utils.php";
 $proj = forceProject();
 ?>
 <html>

@@ -15,7 +15,7 @@
 
 use pg\lib\Project;
 
-include_once dirname(__FILE__) . "/utils.php";
+include_once __DIR__ . "/utils.php";
 
 if(isset($_GET["reset"])){
 	setProject(null);

@@ -102,7 +102,7 @@ class Generator{
 	}
 	private function includePhpResource($className){
 		$namespace = $this->project->namespace . "\\resources";
-		$dir = dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . "resources" . DIRECTORY_SEPARATOR;
+		$dir = dirname(__DIR__) . DIRECTORY_SEPARATOR . "resources" . DIRECTORY_SEPARATOR;
 		if(is_file($filename = $dir . $className . ".php")){
 			$contents = file_get_contents($filename);
 			$contents = str_replace([
