@@ -1,3 +1,4 @@
+
 /*
  * pmt.mcpe.me
  *
@@ -39,7 +40,6 @@ var switchSpoiler = function(id){
 	opener.text("Show");
 	return false;
 };
-
 var addAction = function(id){
 	window.open("popupAddAction.php?parent=" + id, "addAction", "menubar=0,status=0");
 };
