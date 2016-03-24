@@ -15,7 +15,7 @@
 
 use pg\lib\Project;
 
-const IS_PG_READY = false;
+const IS_PG_READY = true;
 const ESTIMATED_READY_TIME = 1448788526;
 const SERVER_PATH = "/var/www/";
 const SERVER_DOCS = "/var/www/html/";
